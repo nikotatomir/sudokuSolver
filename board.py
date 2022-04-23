@@ -12,7 +12,7 @@ class board:
 		self.boxSize = int( len(self.grid)**2 )
 		self.numberOfSubgrids = int(math.sqrt(self.gridSize))
 		
-		self.boxValues = self.getBoxValues()
+		self.fixedBoxValues = self.getFixedBoxValues()
 
 
 	def getGrid(self) -> np.ndarray:
@@ -21,10 +21,10 @@ class board:
 		return grid
 
 	# initialBoxValues
-	def getBoxValues(self) -> tuple:
+	def getFixedBoxValues(self) -> tuple:
 		'''returns 1-D tuple of length N^2 with intial setup of NxN sudoku puzzle'''
-		boxValues = tuple( self.grid.flatten() )
-		return boxValues
+		fixedBoxValues = tuple( self.grid.flatten() )
+		return fixedBoxValues
 
 	def getRowIndex(self, boxId: int) -> int:
 		rowIndex = boxId // self.gridSize
