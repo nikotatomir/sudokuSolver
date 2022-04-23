@@ -42,8 +42,23 @@ class backtrackingAlgorithm:
 		candidatesList = tuple(candidatesList)
 		return candidatesList
 
-	def validCandidate(self) -> bool:
-		pass
+	def validCandidate(self, boxValue: int, boxId: int) -> bool:
+		rowIndex = self.board.getRowIndex(boxId)
+		checkRow = boxValue in self.board.grid[rowIndex,:]		
+		print(checkRow)
+		columnIndex = self.board.getColumnIndex(boxId)
+		checkColumn = boxValue in self.board.grid[:,columnIndex]
+		print(checkColumn)
+
+		subgridIndex = self.board.getSubgridIndex(boxId)
+		i, j = self.board.getSubgridMatrixIndex(subgridIndex) 
+		checkSubgrid = boxValue in self.board.grid[i:i+self.board.numberOfSubgrids,j:j+self.board.numberOfSubgrids]
+		print(checkSubgrid)
+
+		if checkRow and checkColumn and checkSubgrid:
+			return True
+		else:
+			return False
 
 	def solve(self):
 		pass

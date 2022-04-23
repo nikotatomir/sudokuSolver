@@ -14,6 +14,9 @@ print(solve.getColumnIndexList())
 print(solve.getSubgridIndexList())
 print(solve.getSubgridMatrixIndexList())
 
-c = solve.getCandidatesList()
-for candidate in c:
-	print(candidate)
+# c = solve.getCandidatesList()
+# c[0].remove(5)
+# for candidate in c:
+# 	print(candidate)
+
+print(solve.validCandidate(5, 76))
