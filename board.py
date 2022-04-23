@@ -52,5 +52,6 @@ class board:
 		j =self.numberOfSubgrids * ( subgridIndex % self.numberOfSubgrids )
 		return (i,j)
 
-	def validBoard(self):
+	@staticmethod
+	def validBoard(currentGrid: np.ndarray) -> bool:
 		pass
