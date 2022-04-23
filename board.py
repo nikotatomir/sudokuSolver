@@ -47,7 +47,7 @@ class board:
 
 		return subgridIndex
 
-	def getSubgridMatrixIndex(self, subgridIndex: int) -> int:
+	def getSubgridMatrixIndex(self, subgridIndex: int) -> tuple:
 		i = self.numberOfSubgrids * ( subgridIndex // self.numberOfSubgrids )
 		j =self.numberOfSubgrids * ( subgridIndex % self.numberOfSubgrids )
 		return (i,j)
