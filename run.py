@@ -13,3 +13,7 @@ print(solve.getRowIndexList())
 print(solve.getColumnIndexList())
 print(solve.getSubgridIndexList())
 print(solve.getSubgridMatrixIndexList())
+
+c = solve.getCandidatesList()
+for candidate in c:
+	print(candidate)

@@ -36,7 +36,11 @@ class backtrackingAlgorithm:
 
 	def getCandidatesList(self) -> tuple:
 		# tuple of lists for each box
-		pass
+		candidatesList = []
+		for i in range(self.board.boxSize):
+			candidatesList.append([candidate for candidate in range(1, self.board.gridSize)])
+		candidatesList = tuple(candidatesList)
+		return candidatesList
 
 	def validCandidate(self) -> bool:
 		pass
