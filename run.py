@@ -1,16 +1,14 @@
-import numpy as np
-
-from board import board
-from backtrackingAlgorithm import backtrackingAlgorithm
-from visualization import visualization
+from src.board import board
+from src.visualization import visualization
+from src.backtrackingAlgorithm import backtrackingAlgorithm
 
 #-----------------------USER-INPUTS-----------------------#
-fileName = '4x4.txt'
+fileName = 'sudokuPuzzles/4x4.txt'
 
 #-------------------------SOLVER--------------------------#
 # Instanciating board class. Loading sudoku puzzle and computing all necessary properties for computation
 print('Reading Sudoku Puzzle...')
-board = board('9x9.txt') 
+board = board(fileName) 
 
 # Instanciating visualization class.
 visualize = visualization(board)
