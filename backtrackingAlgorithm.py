@@ -12,6 +12,7 @@ class backtrackingAlgorithm:
 		self.candidatesList = self.getCandidatesList()
 
 	def getRowIndexList(self) -> tuple:
+		'''returns an array containing the row index for each sudoku box'''
 		rowIndexList = []
 		for boxId in range(self.board.boxSize):
 			rowIndexList.append(self.board.getRowIndex(boxId))
@@ -19,6 +20,7 @@ class backtrackingAlgorithm:
 		return rowIndexList
 
 	def getColumnIndexList(self) -> tuple:
+		'''returns an array containing the column index for each sudoku box'''
 		columnIndexList = []
 		for boxId in range(self.board.boxSize):
 			columnIndexList.append(self.board.getColumnIndex(boxId))
@@ -26,6 +28,7 @@ class backtrackingAlgorithm:
 		return columnIndexList
 
 	def getSubgridIndexList(self) -> tuple:
+		'''returns an array containing the subgrid index for each sudoku box'''
 		subgridIndexList = []
 		for boxId in range(self.board.boxSize):
 			subgridIndexList.append(self.board.getSubgridIndex(boxId))
@@ -33,6 +36,7 @@ class backtrackingAlgorithm:
 		return subgridIndexList
 
 	def getSubgridMatrixIndexList(self) -> tuple:
+		'''returns an array containing the subgrid matrix start indecies for each sudoku box'''
 		subgridMatrixIndexList = []
 		for boxId in range(self.board.boxSize):
 			subgridIndex = self.subgridIndexList[boxId]
@@ -41,7 +45,7 @@ class backtrackingAlgorithm:
 		return subgridMatrixIndexList
 
 	def getCandidatesList(self) -> tuple:
-		# tuple of lists for each box
+		'''returns a array containing an array of possible candidates for each sudoku box'''
 		candidatesList = []
 		for i in range(self.board.boxSize):
 			candidatesList.append([candidate for candidate in range(1, self.board.gridSize+1)])
@@ -49,6 +53,7 @@ class backtrackingAlgorithm:
 		return candidatesList
 
 	def validCandidate(self, boxValue: int, boxId: int) -> bool:
+		'''validates whether the current candidate meets the row, column and subgrid constraints'''
 		rowIndex = self.rowIndexList[boxId]
 		checkRow = boxValue not in self.board.grid[rowIndex,:]		
 		#print(checkRow)
@@ -64,9 +69,11 @@ class backtrackingAlgorithm:
 			return False
 
 	def isCandidatesListEmpty(self, boxId: int) -> bool:
+		'''checks is an array containing the candidates for a sudoku box is empty'''
 		return not bool(self.candidatesList[boxId])
 
 	def refillCandidatesListIfEmpty(self, boxId: int):
+		'''refills the array containing the candidates for a sudoku box if it is empty'''
 		if self.isCandidatesListEmpty(boxId):
 			for candidate in range(1, self.board.gridSize+1):
 				self.candidatesList[boxId].append(candidate)
@@ -74,6 +81,7 @@ class backtrackingAlgorithm:
 			pass
 
 	def backtrack(self, boxId: int) -> int:
+		'''backtracks to the first viable sudoku box from which the algorithm can continue forward'''
 		boxId -= 1
 		while boxId > 0:
 			if self.board.fixedBoxValues[boxId]:
@@ -86,8 +94,8 @@ class backtrackingAlgorithm:
 				break
 		return boxId
 
-
 	def solve(self):
+		'''solves the sudoku puzzle using the backtracking algorithm'''
 		currentBoxId = 0
 		while currentBoxId < self.board.boxSize:
 			if self.board.fixedBoxValues[currentBoxId] == 0:
