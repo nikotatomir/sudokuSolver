@@ -4,10 +4,19 @@ import matplotlib.pyplot as plt
 
 class visualization:
 
+	# delXposition, delYposition, fontsize
+	properties = {
+		'4x4': {'fontsize': 28, 'singleDigits': (0.4, 0.4), 'doubleDigits': (None,None)},
+		'9x9': {'fontsize': 16, 'singleDigits': (0.375, 0.375), 'doubleDigits': (None,None)},
+		'16x16': {'fontsize': 10, 'singleDigits': (0.375, 0.35), 'doubleDigits': (0.25,0.35)},
+		'25x25': {'fontsize': 8, 'singleDigits': (0.325, 0.325), 'doubleDigits': (0.175,0.325)}
+	}
+
 	def __init__(self, board):
 		self.board = board
-
-		self.boxCoordinates = self.getBoxCoordinates()
+		self.dimension = str(self.board.gridSize)+'x'+str(self.board.gridSize)
+		# print(visualization.properties[self.dimension])
+		# self.boxCoordinates = self.getBoxCoordinates()
 
 
 	def getBoxCoordinates(self) -> tuple:
@@ -39,32 +48,59 @@ class visualization:
 	def plotUnsolvedSudoku(self):
 		plt.figure(1,figsize=(7,7))
 		self.canvas()
+		# computing coordinates for plotting initial values
+		boxCoordinates = []
+		boxId = 0
+		for yValue in reversed(range(self.board.gridSize)):
+			for xValue in range(self.board.gridSize):
+					if self.board.fixedBoxValues[boxId] < 10:
+						deltaX, deltaY = visualization.properties[self.dimension]['singleDigits'][0], visualization.properties[self.dimension]['singleDigits'][1]
+						boxCoordinates.append((xValue+deltaX, yValue+deltaY))
+					elif self.board.fixedBoxValues[boxId] >= 10:
+						deltaX, deltaY = visualization.properties[self.dimension]['doubleDigits'][0], visualization.properties[self.dimension]['doubleDigits'][1]
+						boxCoordinates.append((xValue+deltaX, yValue+deltaY))
+					else:
+						pass	
+					boxId += 1
+		# plotting initial values
 		for boxId in range(self.board.boxSize):
 			fixedBoxValue = self.board.fixedBoxValues[boxId]
 			if fixedBoxValue == 0:
 				pass
 			else:
-				xCoordinate, yCoordinate = self.boxCoordinates[boxId][0], self.boxCoordinates[boxId][1]
-				plt.text(xCoordinate, yCoordinate, fixedBoxValue, fontsize = 14, color = '#000000') #, backgroundcolor = '#f4f4f4')		
-		plt.title('Sudoku (Unsolved)', fontsize = 20)
-		plt.savefig('unsolvedSudokuPuzzle.png', dpi = 250)
+				xCoordinate, yCoordinate = boxCoordinates[boxId][0], boxCoordinates[boxId][1]
+				plt.text(xCoordinate, yCoordinate, fixedBoxValue, fontsize = visualization.properties[self.dimension]['fontsize'], color = '#000000') #, backgroundcolor = '#f4f4f4')		
+		plt.title(f'{self.dimension} Sudoku (Unsolved)', fontsize = 20)
+		plt.savefig(f'unsolvedSudokuPuzzle{self.board.gridSize}x{self.board.gridSize}.png', dpi = 250)
 
 	def plotSolvedSudoku(self):
 		plt.figure(2,figsize=(7,7))
 		self.canvas()
-
 		flattendGrid = self.board.grid.flatten()
+		# computing coordinates for plotting initial values
+		boxCoordinates = []
+		boxId = 0
+		for yValue in reversed(range(self.board.gridSize)):
+			for xValue in range(self.board.gridSize):
+					if flattendGrid[boxId] < 10:
+						deltaX, deltaY = visualization.properties[self.dimension]['singleDigits'][0], visualization.properties[self.dimension]['singleDigits'][1]
+						boxCoordinates.append((xValue+deltaX, yValue+deltaY))
+					elif flattendGrid[boxId] >= 10:
+						deltaX, deltaY = visualization.properties[self.dimension]['doubleDigits'][0], visualization.properties[self.dimension]['doubleDigits'][1]
+						boxCoordinates.append((xValue+deltaX, yValue+deltaY))
+					else:
+						pass	
+					boxId += 1
+
+		
 		for boxId in range(self.board.boxSize):
-			xCoordinate, yCoordinate = self.boxCoordinates[boxId][0], self.boxCoordinates[boxId][1]
+			xCoordinate, yCoordinate = boxCoordinates[boxId][0], boxCoordinates[boxId][1]
 			fixedBoxValue = self.board.fixedBoxValues[boxId]
 
 			if fixedBoxValue == 0:
-				plt.text(xCoordinate, yCoordinate, flattendGrid[boxId], fontsize = 14, color = '#20aa76') #, backgroundcolor = '#f4f4f4')		
+				plt.text(xCoordinate, yCoordinate, flattendGrid[boxId], fontsize = visualization.properties[self.dimension]['fontsize'], color = 'r') #,#ff4d4d backgroundcolor = '#f4f4f4')		
 			else:
-				plt.text(xCoordinate, yCoordinate, flattendGrid[boxId], fontsize = 14, color = '#000000') #, backgroundcolor = '#f4f4f4')		
+				plt.text(xCoordinate, yCoordinate, flattendGrid[boxId],fontsize = visualization.properties[self.dimension]['fontsize'], color = '#000000') #, backgroundcolor = '#f4f4f4')		
 
-		plt.title('Sudoku (Solved)', fontsize = 20)
-		plt.savefig('solvedSudokuPuzzle.png', dpi = 250)
-#c9f0dd
-#0c4b33
-#20AA76
+		plt.title(f'{self.dimension} Sudoku (Solution)', fontsize = 20)
+		plt.savefig(f'solvedSudokuPuzzle{self.board.gridSize}x{self.board.gridSize}.png', dpi = 250)
