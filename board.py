@@ -27,14 +27,17 @@ class board:
 		return fixedBoxValues
 
 	def getRowIndex(self, boxId: int) -> int:
+		'''returns the row index of a specific box'''
 		rowIndex = boxId // self.gridSize
 		return rowIndex
 
 	def getColumnIndex(self, boxId: int) -> int:
+		'''returns the column index of a specific box'''
 		columnIndex = boxId % self.gridSize
 		return columnIndex
 
 	def getSubgridIndex(self, boxId: int) -> int:
+		'''returns the subgrid index of a specific box'''
 		subgridNumbering = np.zeros((self.numberOfSubgrids, self.numberOfSubgrids), dtype = np.int32)
 		currentSubgridNumber = 0
 		for i in range(self.numberOfSubgrids):
@@ -48,12 +51,14 @@ class board:
 		return subgridIndex
 
 	def getSubgridMatrixIndex(self, subgridIndex: int) -> tuple:
+		'''returns the subgrid matrix start indecies a specific subgrid'''
 		i = self.numberOfSubgrids * ( subgridIndex // self.numberOfSubgrids )
 		j =self.numberOfSubgrids * ( subgridIndex % self.numberOfSubgrids )
 		return (i,j)
 
 	@staticmethod
 	def checkArray(array: np.ndarray) -> bool:
+		'''çhecks if array(row, column, subgrid) has duplicate numbers'''
 		array = array[array != 0]
 		if len(array) == len(set(array)):
 			return True
@@ -61,6 +66,7 @@ class board:
 			return False
 
 	def validBoard(self) -> bool:
+		'''checks board validity'''
 		checkRow = np.zeros(self.gridSize, dtype = np.bool)
 		checkColumn = np.zeros(self.gridSize, dtype = np.bool)
 		checkSubgrid = np.zeros(self.gridSize, dtype = np.bool)
