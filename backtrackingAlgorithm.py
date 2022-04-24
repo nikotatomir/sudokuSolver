@@ -56,10 +56,8 @@ class backtrackingAlgorithm:
 		checkColumn = boxValue not in self.board.grid[:,columnIndex]
 		#print(checkColumn)
 		i, j = self.subgridMatrixIndexList[boxId]
-
 		checkSubgrid = boxValue not in self.board.grid[i:i+self.board.numberOfSubgrids,j:j+self.board.numberOfSubgrids]
 		#print(checkSubgrid)
-
 		if checkRow and checkColumn and checkSubgrid:
 			return True
 		else:

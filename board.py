@@ -53,5 +53,32 @@ class board:
 		return (i,j)
 
 	@staticmethod
-	def validBoard(currentGrid: np.ndarray) -> bool:
-		pass
+	def checkArray(array: np.ndarray) -> bool:
+		array = array[array != 0]
+		if len(array) == len(set(array)):
+			return True
+		else:
+			return False
+
+	def validBoard(self) -> bool:
+		checkRow = np.zeros(self.gridSize, dtype = np.bool)
+		checkColumn = np.zeros(self.gridSize, dtype = np.bool)
+		checkSubgrid = np.zeros(self.gridSize, dtype = np.bool)
+
+		for i in range(self.gridSize):
+			# check rows
+			rowArray = self.grid[i,:].copy().flatten()
+			checkRow[i] = board.checkArray(rowArray)
+			# checkColumns
+			columnArray = self.grid[i,:].copy().flatten()
+			checkColumn[i] = board.checkArray(columnArray)
+			# check Subgrids
+			index1, index2 = self.getSubgridMatrixIndex(i)
+			subgridArray = self.grid[ index1 : index1+self.numberOfSubgrids , index2 : index2+self.numberOfSubgrids ].copy().flatten()
+			checkSubgrid[i] = board.checkArray(subgridArray)
+			
+		if np.all(checkRow) and np.all(checkColumn) and np.all(checkSubgrid):
+			return True
+		else:
+			return False
+
