@@ -1,7 +1,6 @@
 import numpy as np
 import math
 
-
 class board:
 
 	def __init__(self, fileName):

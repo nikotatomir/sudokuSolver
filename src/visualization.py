@@ -1,5 +1,3 @@
-import sys
-import numpy as np
 import matplotlib.pyplot as plt
 
 class visualization:
@@ -61,7 +59,7 @@ class visualization:
 				xCoordinate, yCoordinate = boxCoordinates[boxId][0], boxCoordinates[boxId][1]
 				plt.text(xCoordinate, yCoordinate, fixedBoxValue, fontsize = visualization.properties[self.dimension]['fontsize'], color = '#000000') #, backgroundcolor = '#f4f4f4')		
 		plt.title(f'{self.dimension} Sudoku (Unsolved)', fontsize = 20)
-		plt.savefig(f'unsolvedSudokuPuzzle{self.board.gridSize}x{self.board.gridSize}.png', dpi = 250)
+		plt.savefig(f'{self.dimension}unsolvedSudokuPuzzle.png', dpi = 250)
 
 	def plotSolvedSudoku(self):
 		'''plots the solution to the sudoku puzzle'''
@@ -94,4 +92,4 @@ class visualization:
 				plt.text(xCoordinate, yCoordinate, flattendGrid[boxId],fontsize = visualization.properties[self.dimension]['fontsize'], color = '#000000')		
 
 		plt.title(f'{self.dimension} Sudoku (Solution)', fontsize = 20)
-		plt.savefig(f'solvedSudokuPuzzle{self.board.gridSize}x{self.board.gridSize}.png', dpi = 250)
+		plt.savefig(f'{self.dimension}solvedSudokuPuzzle.png', dpi = 250)
