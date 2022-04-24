@@ -15,18 +15,6 @@ class visualization:
 	def __init__(self, board):
 		self.board = board
 		self.dimension = str(self.board.gridSize)+'x'+str(self.board.gridSize)
-		# print(visualization.properties[self.dimension])
-		# self.boxCoordinates = self.getBoxCoordinates()
-
-
-	def getBoxCoordinates(self) -> tuple:
-		'''returns a 2-D tuple of length N^2 with x,y coordinates for each of the N^2 sudoku local boxes (used for visualization)'''
-		boxCoordinates = []
-		for yValue in reversed(range(self.board.gridSize)):
-			for xValue in range(self.board.gridSize):
-				boxCoordinates.append((xValue+0.4, yValue+0.4))
-		boxCoordinates = tuple(boxCoordinates)
-		return boxCoordinates
 
 	def canvas(self):
 		ax = plt.axes()
@@ -92,15 +80,15 @@ class visualization:
 						pass	
 					boxId += 1
 
-		
+		# plotting solution values
 		for boxId in range(self.board.boxSize):
 			xCoordinate, yCoordinate = boxCoordinates[boxId][0], boxCoordinates[boxId][1]
 			fixedBoxValue = self.board.fixedBoxValues[boxId]
 
 			if fixedBoxValue == 0:
-				plt.text(xCoordinate, yCoordinate, flattendGrid[boxId], fontsize = visualization.properties[self.dimension]['fontsize'], color = 'r') #,#ff4d4d backgroundcolor = '#f4f4f4')		
+				plt.text(xCoordinate, yCoordinate, flattendGrid[boxId], fontsize = visualization.properties[self.dimension]['fontsize'], color = 'r')
 			else:
-				plt.text(xCoordinate, yCoordinate, flattendGrid[boxId],fontsize = visualization.properties[self.dimension]['fontsize'], color = '#000000') #, backgroundcolor = '#f4f4f4')		
+				plt.text(xCoordinate, yCoordinate, flattendGrid[boxId],fontsize = visualization.properties[self.dimension]['fontsize'], color = '#000000')		
 
 		plt.title(f'{self.dimension} Sudoku (Solution)', fontsize = 20)
 		plt.savefig(f'solvedSudokuPuzzle{self.board.gridSize}x{self.board.gridSize}.png', dpi = 250)

@@ -4,7 +4,7 @@ from board import board
 from backtrackingAlgorithm import backtrackingAlgorithm
 from visualization import visualization
 
-board = board('9x9.txt') 
+board = board('4x4.txt') 
 visualize = visualization(board)
 visualize.plotUnsolvedSudoku()
 sudoku = backtrackingAlgorithm(board)
