@@ -3,7 +3,7 @@ from src.visualization import visualization
 from src.backtrackingAlgorithm import backtrackingAlgorithm
 
 #-----------------------USER-INPUTS-----------------------#
-fileName = 'sudokuPuzzles/16x16.txt'
+fileName = 'sudokuPuzzles/9x9.txt'
 
 #-------------------------SOLVER--------------------------#
 # Instanciating board class. Loading sudoku puzzle and computing all necessary properties for computation
