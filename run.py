@@ -2,8 +2,11 @@ import numpy as np
 
 from board import board
 from backtrackingAlgorithm import backtrackingAlgorithm
+from visualization import visualization
 
 board = board('9x9.txt') 
+visualize = visualization(board)
+visualize.plotUnsolvedSudoku()
 solve = backtrackingAlgorithm(board)
 
 for i in board.grid:
@@ -30,6 +33,13 @@ for i in board.grid:
 
 valid = board.validBoard()
 print(valid)
+
+a = board.grid.flatten()
+a[0] = 0
+print(a)
+print(board.grid)
+
+visualize.plotSolvedSudoku()
 
 # i = np.zeros(9)
 # i = board.grid[:,0].copy()
