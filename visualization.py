@@ -17,6 +17,7 @@ class visualization:
 		self.dimension = str(self.board.gridSize)+'x'+str(self.board.gridSize)
 
 	def canvas(self):
+		'''returns the matplotlib template upon which all data is plotted'''
 		ax = plt.axes()
 		plt.xlim([0,self.board.gridSize])
 		plt.ylim([0,self.board.gridSize])
@@ -34,6 +35,7 @@ class visualization:
 				plt.axvline(x = value, linewidth = '0.5', color	 = 'k')
 
 	def plotUnsolvedSudoku(self):
+		'''plots the initial sudoku puzzle'''
 		plt.figure(1,figsize=(7,7))
 		self.canvas()
 		# computing coordinates for plotting initial values
@@ -62,6 +64,7 @@ class visualization:
 		plt.savefig(f'unsolvedSudokuPuzzle{self.board.gridSize}x{self.board.gridSize}.png', dpi = 250)
 
 	def plotSolvedSudoku(self):
+		'''plots the solution to the sudoku puzzle'''
 		plt.figure(2,figsize=(7,7))
 		self.canvas()
 		flattendGrid = self.board.grid.flatten()
